@@ -1,0 +1,14 @@
+version: 1.0
+configuration:
+  has_webserver: true
+  scoring:
+    command: bash env/install.sh && dotnet build && cd eBankingTests && wget https://chromedriver.storage.googleapis.com/78.0.3904.105/chromedriver_linux64.zip && unzip chromedriver_linux64.zip # sudo apt install unzip && cd - && dotnet test --logger xunit --results-directory ./reports/
+    files:
+      - reports/TestResults.xml
+  ide_config:
+    default_open_files:
+      - eBankingTests/EBankingApp.cs
+    project_menu:
+      run: dotnet run
+      install: dotnet build
+      test: dotnet test
