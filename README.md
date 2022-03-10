@@ -25,7 +25,8 @@ The example website is given in the `website` folder where you can view the stru
 
 The provided vulnerabilities page will look like: 
 
-![web page](loanPage.png)
+![image](https://user-images.githubusercontent.com/30613381/157583323-867a2142-8dfc-485e-974d-f69013d7d666.png)
+
 
 Your task is to complete the implementation of `EBankingApp` so that the unit tests pass while running the tests.
 
