@@ -2,13 +2,13 @@ version: 1.0
 configuration:
   has_webserver: true
   scoring:
-    command: bash env/install.sh && dotnet build && cd eBankingTests && dotnet test --logger xunit --results-directory ./reports/
+    command: bash env/install.sh && dotnet build && dotnet test --logger xunit --results-directory ./reports/
     files:
       - reports/TestResults.xml
   ide_config:
     default_open_files:
       - eBankingTests/EBankingApp.cs
     project_menu:
-      run: dotnet run
-      install: dotnet build
-      test: dotnet test
+      run: bash env/install.sh && dotnet run
+      install: bash env/install.sh && dotnet build
+      test: bash env/install.sh && dotnet build && dotnet test --logger xunit --results-directory ./reports/
