@@ -7,4 +7,5 @@ sudo apt-get install -y apt-transport-https && \
 sudo apt-get update && \
 sudo apt-get install -y aspnetcore-runtime-5.0
 sudo apt-get install -y dotnet-sdk-5.0
+cd eBankingTests
 wget https://chromedriver.storage.googleapis.com/78.0.3904.105/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && chmod 774 chromedriver
