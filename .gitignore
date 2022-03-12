@@ -9,6 +9,12 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.zip
+*.exe
+chromedriver_win32/
+chromedriver.*
+chromedriver_linux64.*
+chromedriver_linux64/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
