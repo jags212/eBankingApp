@@ -128,5 +128,95 @@ namespace eBankingTests
                 Assert.Fail("Problem checking type registration");
             }
         }
+
+        [TestMethod]
+        public void testEmptyLoanDetails()
+        {
+            InitializeWithTypeReplacements();
+
+            var driverOptions = new ChromeOptions();
+
+            driverOptions.AddArgument("headless");
+
+            string driverPath = Environment.CurrentDirectory;
+            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+
+            LoanDetails loanDetails = new LoanDetails()
+            {
+                firstName ="",
+                lastName="",
+                email ="",
+                loanType="",
+                loanDuration = new Random().Next(100)
+            };
+
+            // Insert Logic to Assert the expected and Actual HashCode Value
+
+            Assert.AreEqual(0, 1); // Modify
+        }
+
+        [TestMethod]
+        public void testCorrectLoanDetails()
+        {
+            InitializeWithTypeReplacements();
+
+            var driverOptions = new ChromeOptions();
+
+            driverOptions.AddArgument("headless");
+
+            string driverPath = Environment.CurrentDirectory;
+            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+
+            LoanDetails loanDetails = new LoanDetails()
+            {
+                firstName = "Hacker",
+                lastName = "Rank",
+                email = "h@r.com",
+                loanType = "Commercial",
+                loanDuration = new Random().Next(7) + 1
+            };
+
+            // Insert Logic to Assert the expected and Actual HashCode Value
+
+            Assert.AreEqual(0, 1); // Modify
+        }
+
+        [TestMethod]
+        public void testIncorrectDetails()
+        {
+            InitializeWithTypeReplacements();
+
+            var driverOptions = new ChromeOptions();
+
+            driverOptions.AddArgument("headless");
+
+            string driverPath = Environment.CurrentDirectory;
+            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+
+            LoanDetails loanDetails = new LoanDetails()
+            {
+                firstName = "Hacker",
+                lastName = "Rank",
+                email = "hacker@r",
+                loanType = "Test",
+                loanDuration = new Random().Next(100) + 1
+            };
+
+           // Insert Logic to Assert the expected and Actual HashCode Value
+
+            Assert.AreEqual(0, 1); // Modify
+        }
+
+        private static void AssertDivExistsAndContainsText(string expectedText, ChromeDriver driver, string id)
+        {
+            var element = driver.FindElement(By.Id(id));
+
+            Assert.IsNotNull(element, $"element '{id}' should not be null");
+            Assert.IsTrue(element.Displayed, $"element '{id}' should be displayed");
+            Assert.IsTrue(element.Enabled, $"element '{id}' should be enabled");
+
+            Assert.IsTrue(element.Text.Contains(expectedText), 
+                $"element '{id}' should contain expected text. Actual: '{element.Text}'");
+        }        
     }
 }
