@@ -52,30 +52,6 @@ namespace eBankingTests
             return _instance;
         }
 
-        [TestMethod]
-        public void CallHomePage_UsingSeleniumAndWebApplicationFactory()
-        {
-            var expectedText = "Fill Loan Details";
-
-            var url = "home/index";
-            var fullyQualifiedUrl = 
-                SystemUnderTest.GetServerAddressForRelativeUrl(url);
-
-            var driverOptions = new ChromeOptions();
-
-            driverOptions.AddArgument("headless");
-
-            string driverPath = Environment.CurrentDirectory;
-            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(),driverOptions);
-
-            // act
-            Console.WriteLine($"Navigating to '{fullyQualifiedUrl}...'");
-            driver.Navigate().GoToUrl(fullyQualifiedUrl);
-
-            // assert
-            AssertDivExistsAndContainsText(expectedText, driver, "headerValue");            
-        }
-
         private void InitializeWithTypeReplacements()
         {
             _systemUnderTest = new CustomWebApplicationFactory<Startup>(addDevelopmentConfigurations: builder =>
