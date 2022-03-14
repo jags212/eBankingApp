@@ -13,7 +13,7 @@ namespace eBankingTests
         public static int applyLoan(IWebDriver driver,
             string fullyQualifiedUrlLoan, string fullyQualifiedUrlSuccessLoan, LoanDetails loanDetails)
         {
-            return null;
+            return -1;
         }
     }
 }
