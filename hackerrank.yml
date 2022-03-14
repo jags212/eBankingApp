@@ -3,7 +3,7 @@ configuration:
   has_webserver: true
   readonly_paths:
     - eBankingApp/*
-    - eBankingAppTests/TestSetUp/*
+    - eBankingTests/TestSetUp/*
   scoring:
     command: bash env/install.sh && dotnet build && dotnet test --logger xunit --results-directory ./reports/
     files:
