@@ -126,9 +126,24 @@ namespace eBankingTests
                 loanDuration = new Random().Next(100)
             };
 
-            // Insert Logic to Assert the expected and Actual HashCode Value
+            var urlLoan = "home/Index";
 
-            Assert.AreEqual(0, 1); // Modify
+            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
+            "&email="+loanDetails.email+"&loanType="+loanDetails.loanType+"&loanDuration="+loanDetails.loanDuration;
+            
+            var fullyQualifiedUrlSuccessLoan =
+               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
+
+            var fullyQualifiedUrlLoan =
+                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
+           
+
+            var service = SystemUnderTest.CreateInstance<ILoanService>();
+            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+
+            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, fullyQualifiedUrlSuccessLoan, loanDetails);
+
+            Assert.AreEqual(expectedHashCode, actualHashCode);
         }
 
         [TestMethod]
@@ -151,10 +166,21 @@ namespace eBankingTests
                 loanType = "Commercial",
                 loanDuration = new Random().Next(7) + 1
             };
+            var urlLoan = "home/Index";
+            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
+             "&email=" + loanDetails.email + "&loanType=" + loanDetails.loanType + "&loanDuration=" + loanDetails.loanDuration;
+            var fullyQualifiedUrlSuccessLoan =
+               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
 
-            // Insert Logic to Assert the expected and Actual HashCode Value
+            var fullyQualifiedUrlLoan =
+                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
 
-            Assert.AreEqual(0, 1); // Modify
+            var service = SystemUnderTest.CreateInstance<ILoanService>();
+            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+
+            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan , fullyQualifiedUrlSuccessLoan, loanDetails);
+
+            Assert.AreEqual(expectedHashCode, actualHashCode);
         }
 
         [TestMethod]
@@ -178,21 +204,21 @@ namespace eBankingTests
                 loanDuration = new Random().Next(100) + 1
             };
 
-           // Insert Logic to Assert the expected and Actual HashCode Value
+            var urlLoan = "home/Index";
+            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
+            "&email=" + loanDetails.email + "&loanType=" + loanDetails.loanType + "&loanDuration=" + loanDetails.loanDuration;
+            var fullyQualifiedUrlSuccessLoan =
+               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
 
-            Assert.AreEqual(0, 1); // Modify
+            var fullyQualifiedUrlLoan =
+                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
+
+            var service = SystemUnderTest.CreateInstance<ILoanService>();
+            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+
+            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, fullyQualifiedUrlSuccessLoan, loanDetails);
+
+            Assert.AreEqual(expectedHashCode, actualHashCode);
         }
-
-        private static void AssertDivExistsAndContainsText(string expectedText, ChromeDriver driver, string id)
-        {
-            var element = driver.FindElement(By.Id(id));
-
-            Assert.IsNotNull(element, $"element '{id}' should not be null");
-            Assert.IsTrue(element.Displayed, $"element '{id}' should be displayed");
-            Assert.IsTrue(element.Enabled, $"element '{id}' should be enabled");
-
-            Assert.IsTrue(element.Text.Contains(expectedText), 
-                $"element '{id}' should contain expected text. Actual: '{element.Text}'");
-        }        
     }
 }
