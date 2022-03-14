@@ -12,7 +12,7 @@ configuration:
     default_open_files:
       - eBankingTests/EBankingApp.cs
     project_menu:
-      run: bash env/install.sh && cd eBankingApp && dotnet run --urls=http://0.0.0.0:8000/
+      run: bash env/install.sh && cd eBankingApp && dotnet run 
       install: bash env/install.sh && dotnet build
       test: bash env/install.sh && dotnet build && dotnet test --logger xunit --results-directory ./reports/
       

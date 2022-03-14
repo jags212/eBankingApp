@@ -33,13 +33,13 @@ Your task is to complete the implementation of `EBankingApp` so that the unit te
 ## Commands
 - run: 
 ```bash
-dotnet build
+bash env/install.sh && cd eBankingApp && dotnet run 
 ```
 - install: 
 ```bash
-dotnet install
+bash env/install.sh && dotnet build
 ```
 - test: 
 ```bash
-dotnet test
+bash env/install.sh && dotnet build && dotnet test --logger xunit --results-directory ./reports/
 ```
