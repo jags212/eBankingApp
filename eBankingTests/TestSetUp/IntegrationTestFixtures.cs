@@ -127,23 +127,17 @@ namespace eBankingTests
             };
 
             var urlLoan = "home/Index";
-
-            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
-            "&email="+loanDetails.email+"&loanType="+loanDetails.loanType+"&loanDuration="+loanDetails.loanDuration;
-            
-            var fullyQualifiedUrlSuccessLoan =
-               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
-
             var fullyQualifiedUrlLoan =
                 SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
            
 
             var service = SystemUnderTest.CreateInstance<ILoanService>();
-            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
 
-            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, fullyQualifiedUrlSuccessLoan, loanDetails);
+            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
 
-            Assert.AreEqual(expectedHashCode, actualHashCode);
+            Assert.AreEqual(actualHashCode, "Cannot locate option with value: ");
+            driver.Quit();
         }
 
         [TestMethod]
@@ -167,20 +161,17 @@ namespace eBankingTests
                 loanDuration = new Random().Next(7) + 1
             };
             var urlLoan = "home/Index";
-            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
-             "&email=" + loanDetails.email + "&loanType=" + loanDetails.loanType + "&loanDuration=" + loanDetails.loanDuration;
-            var fullyQualifiedUrlSuccessLoan =
-               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
-
+        
             var fullyQualifiedUrlLoan =
                 SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
 
             var service = SystemUnderTest.CreateInstance<ILoanService>();
-            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
 
-            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan , fullyQualifiedUrlSuccessLoan, loanDetails);
+            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
 
             Assert.AreEqual(expectedHashCode, actualHashCode);
+            driver.Quit();
         }
 
         [TestMethod]
@@ -205,20 +196,17 @@ namespace eBankingTests
             };
 
             var urlLoan = "home/Index";
-            var urlSuccessLoan = "home/loanValue?firstName=" + loanDetails.firstName + "&lastName=" + loanDetails.lastName +
-            "&email=" + loanDetails.email + "&loanType=" + loanDetails.loanType + "&loanDuration=" + loanDetails.loanDuration;
-            var fullyQualifiedUrlSuccessLoan =
-               SystemUnderTest.GetServerAddressForRelativeUrl(urlSuccessLoan);
-
+            
             var fullyQualifiedUrlLoan =
                 SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
 
             var service = SystemUnderTest.CreateInstance<ILoanService>();
-            int expectedHashCode = service.GetLoanHashCode(loanDetails);
+            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
 
-            int actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, fullyQualifiedUrlSuccessLoan, loanDetails);
+            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
 
-            Assert.AreEqual(expectedHashCode, actualHashCode);
+            Assert.AreEqual(actualHashCode, "Cannot locate option with value: Test");
+            driver.Quit();
         }
     }
 }
