@@ -108,40 +108,36 @@ namespace eBankingTests
         [TestMethod]
         public void testEmptyLoanDetails()
         {
-            InitializeWithTypeReplacements();
-
-            var driverOptions = new ChromeOptions();
-
-            driverOptions.AddArgument("headless");
-
-            string driverPath = Environment.CurrentDirectory;
-            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+            ChromeDriver driver = SetUpDriver();
 
             LoanDetails loanDetails = new LoanDetails()
             {
-                firstName ="",
-                lastName="",
-                email ="",
-                loanType="",
+                firstName = "",
+                lastName = "",
+                email = "",
+                loanType = "",
                 loanDuration = new Random().Next(100)
             };
 
-            var urlLoan = "home/Index";
-            var fullyQualifiedUrlLoan =
-                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
-           
-
-            var service = SystemUnderTest.CreateInstance<ILoanService>();
-            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
-
-            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
+          
+            string actualHashCode = CalculateHashCode(driver, loanDetails);
 
             Assert.AreEqual(actualHashCode, "Cannot locate option with value: ");
             driver.Quit();
         }
 
-        [TestMethod]
-        public void testCorrectLoanDetails()
+        private string CalculateHashCode(ChromeDriver driver, LoanDetails loanDetails)
+        {
+            var urlLoan = "home/Index";
+
+            var fullyQualifiedUrlLoan =
+                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
+
+            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
+            return actualHashCode;
+        }
+
+        private ChromeDriver SetUpDriver()
         {
             InitializeWithTypeReplacements();
 
@@ -150,7 +146,14 @@ namespace eBankingTests
             driverOptions.AddArgument("headless");
 
             string driverPath = Environment.CurrentDirectory;
-            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+            var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
+            return driver;
+        }
+
+        [TestMethod]
+        public void testCorrectLoanDetails()
+        {
+            ChromeDriver driver = SetUpDriver();
 
             LoanDetails loanDetails = new LoanDetails()
             {
@@ -160,32 +163,30 @@ namespace eBankingTests
                 loanType = "Commercial",
                 loanDuration = new Random().Next(7) + 1
             };
-            var urlLoan = "home/Index";
-        
-            var fullyQualifiedUrlLoan =
-                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
-
-            var service = SystemUnderTest.CreateInstance<ILoanService>();
-            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
-
-            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
+            
+            string expectedHashCode, actualHashCode;
+            AssertCalculations(driver, loanDetails, out expectedHashCode, out actualHashCode);
 
             Assert.AreEqual(expectedHashCode, actualHashCode);
             driver.Quit();
         }
 
+        private void AssertCalculations(ChromeDriver driver, LoanDetails loanDetails, out string expectedHashCode, out string actualHashCode)
+        {
+            var urlLoan = "home/Index";
+
+            var fullyQualifiedUrlLoan =
+                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
+
+            var service = SystemUnderTest.CreateInstance<ILoanService>();
+            expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
+            actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
+        }
+
         [TestMethod]
         public void testIncorrectDetails()
         {
-            InitializeWithTypeReplacements();
-
-            var driverOptions = new ChromeOptions();
-
-            driverOptions.AddArgument("headless");
-
-            string driverPath = Environment.CurrentDirectory;
-            using var driver = new ChromeDriver(driverPath.Split("bin")[0].ToString(), driverOptions);
-
+            ChromeDriver driver = SetUpDriver();
             LoanDetails loanDetails = new LoanDetails()
             {
                 firstName = "Hacker",
@@ -195,15 +196,7 @@ namespace eBankingTests
                 loanDuration = new Random().Next(100) + 1
             };
 
-            var urlLoan = "home/Index";
-            
-            var fullyQualifiedUrlLoan =
-                SystemUnderTest.GetServerAddressForRelativeUrl(urlLoan);
-
-            var service = SystemUnderTest.CreateInstance<ILoanService>();
-            var expectedHashCode = Convert.ToString(service.GetLoanHashCode(loanDetails));
-
-            var actualHashCode = EBankingApp.applyLoan(driver, fullyQualifiedUrlLoan, loanDetails);
+            string actualHashCode = CalculateHashCode(driver, loanDetails);
 
             Assert.AreEqual(actualHashCode, "Cannot locate option with value: Test");
             driver.Quit();
